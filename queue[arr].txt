@@ -1,0 +1,116 @@
+queue[arr]
+import java.util.Scanner;
+
+public class queue_using_array {
+
+    static Scanner sc = new Scanner(System.in);
+    static int size = 30;
+    static int front=-1;
+    static int rear=-1;
+    static int [] queue = new int[size];
+    static int count = 0;
+
+    public static void enqueue()
+    {
+        if(rear==size-1)
+        {
+            System.out.println("queue is full");
+            return;
+        }
+        if(front==-1)
+        {
+            front = 0;
+            rear = 0;
+            int data;
+            System.out.print("enter the data you want : ");
+            data = sc.nextInt();
+            queue[rear] = data;
+        }
+        else
+        {
+            rear++;
+            int data;
+            System.out.print("enter the data you want : ");
+            data = sc.nextInt();
+            queue[rear] = data;
+        }
+        count++;
+    }
+
+    public static int deQueue()
+    {
+        int temp;
+        if(front == -1 || rear<front)
+        {
+            System.out.println("queue is empty");
+            return 0;
+        }
+        else
+        {
+            temp = queue[front] ;
+            front++;
+            count--;
+            return temp;
+        }
+    }
+    public static int peek()
+    {
+        int temp;
+        if(front == -1 || rear<front)
+        {
+            System.out.println("queue is empty");
+            return -1;
+        }
+        else
+        {
+            temp = queue[front] ;
+            return temp;
+        }
+    }
+    public static void display()
+    {
+        for(int i=front;i<=rear;i++)
+        {
+            System.out.print(queue[i] + "  ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        System.out.println("1.enQueue");
+        System.out.println("2.deQueue");
+        System.out.println("3.peek");
+        System.out.println("4.display");
+        System.out.println("5.isEmpty");
+        System.out.println("6.size");
+        System.out.println("7.exit");
+        while (true) {
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1 -> enqueue();
+                case 2 -> {
+                    int deleted = deQueue();
+                    System.out.println("deleted element: " + deleted);
+                }
+                case 3 -> {
+                    int front = peek();
+                    System.out.println("front element: " + front);
+                }
+                case 6 -> System.out.println("no of elements in queue are "+ count);
+                case 5 ->{
+                    if(count==0)
+                        System.out.println("queue is empty");
+                    else
+                        System.out.println("queue is not empty");
+                }
+                case 4 -> display();
+                case 7 -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+                default -> System.out.println("Invalid choice. Please choose again.");
+            }
+        }
+    }
+}

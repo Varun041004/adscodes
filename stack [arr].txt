@@ -1,0 +1,137 @@
+stack [arr]
+import java.util.Scanner;
+
+public class stack_using_array {
+    static Scanner sc = new Scanner(System.in);
+
+    static int size = 30;
+    static int top=-1;
+    static int [] stack = new int[size];
+    public static void push()
+    {
+        if (top == size -1)
+        {
+            System.out.println("stack is full");
+            return;
+        }
+        int data;
+        System.out.print("enter the data you want : ");
+        data = sc.nextInt();
+        top++;
+        stack[top] = data;
+
+    }
+    public static int pop()
+    {
+        int temp=-1;
+        if (top==-1)
+        {
+            System.out.println("stack is empty");
+        }
+        else
+        {
+            temp = stack[top];
+            top--;
+        }
+        return temp;
+    }
+    public static void display()
+    {
+        if (top == -1)
+        {
+            System.out.println("stack is empty");
+        }
+        else
+        {
+            for(int i=0;i<=top;i++)
+            {
+                System.out.print(stack[i] + "  ");
+            }
+            System.out.println();
+        }
+
+    }
+    public static int peek()
+    {
+        int temp=-1;
+        if (top==-1)
+        {
+            System.out.println("stack is empty");
+        }
+        else
+        {
+            temp = stack[top];
+        }
+        return temp;
+    }
+
+    public static int size()
+    {
+        if (top==-1)
+        {
+            System.out.println("stack is empty : ");
+            return -1;
+        }
+        else {
+            return top+1;
+        }
+    }
+    public static boolean isEmpty()
+    {
+        if (top==-1)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println("1.push");
+        System.out.println("2.pop");
+        System.out.println("3.peek");
+        System.out.println("4.display");
+        System.out.println("5.size");
+        System.out.println("6.isEmpty");
+        System.out.println("7.Exit");
+        while (true) {
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1 -> push();
+                case 2 -> {
+                    int popped = pop();
+                    System.out.println("Popped element: " + popped);
+                }
+                case 3 -> {
+                    int peeked = peek();
+                    System.out.println("Peeked element: " + peeked);
+                }
+                case 4 -> display();
+                case 5 ->
+                {
+                    int size = size();
+                    System.out.println("total elements in stack are " + size);
+                }
+                case 6 -> {
+                    boolean res = isEmpty();
+                    if(res)
+                    {
+                        System.out.println("stack is empty");
+                    }
+                    else
+                    {
+                        System.out.println("stack is not empty");
+                    }
+                }
+                case 7 -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+                default -> System.out.println("Invalid choice. Please choose again.");
+            }
+        }
+    }
+}
+
+

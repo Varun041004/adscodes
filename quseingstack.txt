@@ -1,0 +1,27 @@
+package Lab_asignments;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+public class queue_using_stack {
+    public static void main(String[] args) {
+        Stack<Integer> st = new Stack<>();
+        Stack<Integer> st2 = new Stack<>();
+        Queue q = new LinkedList<>();
+
+        st.push(10);
+        st.push(20);
+        st.push(30);
+
+        st2.push(st.pop());
+        st2.push(st.pop());
+        st2.push(st.pop());
+
+        System.out.println(st2.pop());
+        System.out.println(st2.pop());
+        System.out.println(st2.pop());
+
+
+    }
+}

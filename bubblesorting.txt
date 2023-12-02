@@ -1,0 +1,138 @@
+sorting
+
+import java.util.Scanner;
+
+public class sorting {
+
+    static Scanner sc = new Scanner(System.in);
+
+    public static void bubble_sort(int [] arr){
+        int size = arr.length;
+        for (int i=0;i<size; i++)
+        {
+            int flag = 0;
+            for (int j=0; j<size-1-i; j++)
+            {
+                if(arr[j]>arr[j+1])
+                {
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                    flag=1;
+                }
+            }
+            if(flag==0)
+                break;
+        }
+        System.out.print("sorted ");
+        print_array(arr);
+    }
+
+    public static void insertion_sort(int [] arr)
+    {
+        int size = arr.length;
+        for (int i=1;i<size;i++)
+        {
+            int temp = arr[i];
+            int j=i;
+            while(j>0 && arr[j-1]> temp )
+            {
+                arr[j] = arr[j-1];
+                j--;
+            }
+            arr[j] = temp;
+        }
+        System.out.print("sorted ");
+        print_array(arr);
+    }
+
+    public static void selection_sort(int [] arr)
+    {
+        int size = arr.length;
+        for (int i=0;i<size;i++)
+        {
+            int min = i;
+            for (int j=i+1;j<size;j++)
+            {
+                if (arr[j]<arr[min])
+                {
+                    min = j;
+                }
+            }
+
+            int temp;
+            temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }
+        System.out.print("sorted ");
+        print_array(arr);
+    }
+
+
+    public static int partition(int [] arr , int start , int end)
+    {
+        int low = start;
+        int pivot = arr[end];
+        for (int i=start;i<end;i++)
+        {
+            if(arr[i]<pivot)
+            {
+                int temp = arr[low];
+                arr[low] = arr[i];
+                arr[i] = temp;
+                low++;
+            }
+        }
+        int temp = arr[low];
+        arr[low] = pivot;
+        arr[end] = temp;
+        return low;
+    }
+    public static void quick_sort(int [] arr, int low , int high)
+    {
+        if(low<high)
+        {
+            int pivot = partition(arr,low,high);
+            quick_sort(arr,pivot+1,high);
+            quick_sort(arr,low,high-1);
+        }
+
+    }
+
+    public static int [] create_array()
+    {
+        Scanner sc =  new Scanner(System.in);
+        System.out.print("enter the size of the array : ");
+        int size = sc.nextInt();
+        int [] arr =  new int[size];
+        System.out.print("enter the array elements : ");
+        for (int i=0;i<size;i++)
+        {
+            arr[i] = sc.nextInt();
+        }
+        return arr;
+    }
+    public static void print_array(int [] arr)
+    {
+        int size = arr.length;
+        System.out.print("array elements are : ");
+        for (int i=0;i<size;i++)
+        {
+            System.out.print(arr[i] + "  ");
+        }
+        System.out.println();
+    }
+    public static void main (String [] args){
+        //int [] arr = {66,55,44,33,22,11};
+        int [] arr = create_array();
+//        bubble_sort(arr);
+//        insertion_sort(arr);
+//        selection_sort(arr);
+//        System.out.print("before sorting ");
+//        print_array(arr);
+//        quick_sort(arr,0,arr.length-1);
+//        System.out.print("after sorting ");
+//        print_array(arr);
+    }
+}

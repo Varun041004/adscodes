@@ -1,0 +1,175 @@
+bst
+import java.util.Scanner;
+
+public class binary_search_tree {
+
+    public static class node{
+        int data;
+        node left,right;
+        public node (int x)
+        {
+            data = x;
+            left = right = null;
+        }
+    }
+    public static class tree_op{
+
+        node insert (node root, int data)
+        {
+            if(root==null)
+            {
+                root = new node(data);
+                return root;
+            }
+            if(root.data<data){
+                root.right = insert(root.right , data);}
+            else{
+                root.left = insert(root.left , data);}
+            return root;
+        }
+
+        void preOrder(node root)
+        {
+            if(root == null)
+                return;
+            System.out.print(root.data + "  ");
+            preOrder(root.left);
+            preOrder(root.right);
+        }
+
+        void inorder(node root)
+        {
+            if(root==null)
+                return;
+            inorder(root.left);
+            System.out.print(root.data + "  ");
+            inorder(root.right);
+        }
+
+        void postorder(node root)
+        {
+            if(root==null)
+                return;
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data + "  ");
+        }
+
+        int size(node root)
+        {
+            if(root==null)
+                return 0;
+            return 1 + size(root.left) + size(root.right);
+        }
+
+        int height(node root)
+        {
+            if(root == null)
+                return 0;
+            int left = height(root.left);
+            int right = height(root.right);
+            return 1 + Math.max(left , right);
+        }
+
+        int leaf_node(node root)
+        {
+            if(root == null)
+                return 0;
+            if(root.left == null && root.right == null)
+                return 1;
+            return leaf_node(root.right) + leaf_node(root.left);
+        }
+
+        boolean binary_search(node root , int data)
+        {
+            if(root==null)
+                return false;
+            if(root.data == data)
+                return true;
+            else if(root.data < data)
+                return binary_search(root.right , data);
+            else
+                return binary_search(root.left , data);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        tree_op treeOp = new tree_op();
+        node root = null;
+        // Menu for user to choose operation
+        System.out.println("Binary Search Tree Operations:");
+        System.out.println("1. Insert One Value");
+        System.out.println("2. Insert Values from Array");
+        System.out.println("3. Preorder Traversal");
+        System.out.println("4. Inorder Traversal");
+        System.out.println("5. Postorder Traversal");
+        System.out.println("6. Size of the Tree");
+        System.out.println("7. Height of the Tree");
+        System.out.println("8. Count Leaf Nodes");
+        System.out.println("9. Binary Search");
+        System.out.println("10. Exit");
+        while (true) {
+
+            System.out.print("Enter your choice (1-10): ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the value to insert: ");
+                    int insertValue = scanner.nextInt();
+                    root = treeOp.insert(root, insertValue);
+                    System.out.println(insertValue + " inserted into the tree.");
+                    break;
+                case 2:
+                    // Insert values from array as before
+                    int[] values = {50, 30, 70, 20, 40, 60, 80};
+                    for (int value : values) {
+                        root = treeOp.insert(root, value);
+                    }
+                    System.out.println("Values inserted from array.");
+                    break;
+                case 3:
+                    System.out.print("Preorder Traversal: ");
+                    treeOp.preOrder(root);
+                    System.out.println();
+                    break;
+                case 4:
+                    System.out.print("Inorder Traversal: ");
+                    treeOp.inorder(root);
+                    System.out.println();
+                    break;
+                case 5:
+                    System.out.print("Postorder Traversal: ");
+                    treeOp.postorder(root);
+                    System.out.println();
+                    break;
+                case 6:
+                    System.out.println("Size of the Tree: " + treeOp.size(root));
+                    break;
+                case 7:
+                    System.out.println("Height of the Tree: " + treeOp.height(root));
+                    break;
+                case 8:
+                    System.out.println("Count of Leaf Nodes: " + treeOp.leaf_node(root));
+                    break;
+                case 9:
+                    System.out.print("Enter the value to search: ");
+                    int searchData = scanner.nextInt();
+                    if (treeOp.binary_search(root, searchData)) {
+                        System.out.println(searchData + " found in the tree.");
+                    } else {
+                        System.out.println(searchData + " not found in the tree.");
+                    }
+                    break;
+                case 10:
+                    System.out.println("Exiting the program.");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+
+    }
+}

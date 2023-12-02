@@ -1,0 +1,137 @@
+bt
+import java.util.Scanner;
+
+public class binarytree {
+
+    public static class node{
+        int data;
+        node left,right;
+        public node (int x)
+        {
+            data = x;
+            left = right = null;
+        }
+    }
+    public static class tree_op{
+        int idx = -1;
+        node buildTree(int [] arr)
+        {
+            idx++;
+            if(idx>=arr.length || arr[idx]==-1)
+                return null;
+
+            node temp = new node(arr[idx]);
+            temp.left = buildTree(arr);
+            temp.right = buildTree(arr);
+            return temp;
+        }
+
+        void preOrder(node root)
+        {
+            if(root == null)
+                return;
+            System.out.print(root.data + "  ");
+            preOrder(root.left);
+            preOrder(root.right);
+        }
+
+        void inorder(node root)
+        {
+            if(root==null)
+                return;
+            inorder(root.left);
+            System.out.print(root.data + "  ");
+            inorder(root.right);
+        }
+
+        void postorder(node root)
+        {
+            if(root==null)
+                return;
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data + "  ");
+        }
+
+        int size(node root)
+        {
+            if(root==null)
+                return 0;
+            return 1 + size(root.left) + size(root.right);
+        }
+
+        int height(node root)
+        {
+            if(root == null)
+                return 0;
+            int left = height(root.left);
+            int right = height(root.right);
+            return 1 + Math.max(left , right);
+        }
+
+        int leaf_node(node root)
+        {
+            if(root == null)
+                return 0;
+            if(root.left == null && root.right == null)
+                return 1;
+            return leaf_node(root.right) + leaf_node(root.left);
+        }
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        tree_op bt = new tree_op();
+
+        // Build a sample binary tree
+        int[] arr = {1, 2, 3, 4, -1, -1, 5, -1, -1, 6, 7, -1, -1, -1};
+        node root = bt.buildTree(arr);
+
+        // Menu for user to choose operation
+        System.out.println("Binary Tree Operations:");
+        System.out.println("1. Preorder Traversal");
+        System.out.println("2. Inorder Traversal");
+        System.out.println("3. Postorder Traversal");
+        System.out.println("4. Size of the Tree");
+        System.out.println("5. Height of the Tree");
+        System.out.println("6. Count Leaf Nodes");
+        System.out.println("7. exit");
+
+
+        while(true){
+            System.out.print("Enter your choice (1-7): ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Preorder Traversal: ");
+                    bt.preOrder(root);
+                    break;
+                case 2:
+                    System.out.print("Inorder Traversal: ");
+                    bt.inorder(root);
+                    break;
+                case 3:
+                    System.out.print("Postorder Traversal: ");
+                    bt.postorder(root);
+                    break;
+                case 4:
+                    System.out.println("Size of the Tree: " + bt.size(root));
+                    break;
+                case 5:
+                    System.out.println("Height of the Tree: " + bt.height(root));
+                    break;
+                case 6:
+                    System.out.println("Count of Leaf Nodes: " + bt.leaf_node(root));
+                    break;
+                case 7:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice");
+                    break;
+            }
+        }
+
+    }
+}
+

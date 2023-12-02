@@ -1,0 +1,145 @@
+queue[ll]
+import java.util.Scanner;
+
+public class queue_using_linkedlist {
+
+    public static class node {
+        int data;
+        node next;
+
+        public node (int x){
+            data = x;
+            next = null;
+        }
+
+    }
+
+    public static class queue_linked_list {
+        node front = null;
+        node rear = null;
+        int count = 0;
+
+        void enqueue(int num) {
+            node temp = new node(num);
+            temp.data = num;
+            if (front == null) {
+                front = temp;
+            }
+            else
+            {
+                rear.next = temp;
+            }
+            rear = temp;
+            count++;
+        }
+
+        int deQueue() {
+            int element;
+            if (front == null) {
+                System.out.println("queue is empty");
+                return -1;
+            }
+            else
+            {
+                element = front.data;
+                front = front.next;
+                count--;
+                return element;
+            }
+        }
+        int peek()
+        {
+            int element;
+            if(front==null)
+            {
+                System.out.println("queue is empty");
+                return -1;
+            }
+            else
+            {
+                element = front.data;
+                return element;
+            }
+        }
+        int rear_element()
+        {
+            if(front==null)
+            {
+                System.out.println("queue is empty");
+                return -1;
+            }
+            else
+            {
+                return rear.data;
+            }
+        }
+        int size()
+        {
+            return count;
+        }
+
+        void display()
+        {
+            node temp2 = front;
+            while(temp2!=null)
+            {
+                System.out.print(temp2.data + "->");
+                temp2 = temp2.next;
+            }
+            System.out.println("null");
+        }
+        boolean isEmpty()
+        {
+            return front==null;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1.enQueue");
+        System.out.println("2.deQueue");
+        System.out.println("3.peek");
+        System.out.println("4.display");
+        System.out.println("5.size");
+        System.out.println("6.isEmpty");
+        System.out.println("7.Exit");
+        System.out.println("8.rear_element");
+
+        queue_linked_list q1 = new queue_linked_list();
+
+        while (true) {
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1 -> {
+                    System.out.print("enter the element : ");
+                    int element = sc.nextInt();
+                    q1.enqueue(element);
+                }
+                case 2 -> {
+                    int deleted = q1.deQueue();
+                    System.out.println("deleted element: " + deleted);
+                }
+                case 3 -> {
+                    int front = q1.peek();
+                    System.out.println("front element: " + front);
+                }
+                case 4 -> q1.display();
+                case 5 -> {
+                    int size = q1.size();
+                    System.out.println("no of elements in queue are  "+ size);
+                }
+                case 6 -> System.out.println(q1.isEmpty());
+                case 7 -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+                case 8 -> {
+                    int rear_element = q1.rear_element();
+                    System.out.println("rear element is : "+ rear_element);
+                }
+                default -> System.out.println("Invalid choice. Please choose again.");
+            }
+        }
+    }
+}

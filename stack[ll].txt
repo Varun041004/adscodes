@@ -1,0 +1,136 @@
+stack[ll]
+import java.util.Scanner;
+
+public class stack_using_linkedlist {
+
+    public static class node {
+        int data;
+        node next;
+        public node(int x){
+            data = x;
+            next = null;
+        }
+    }
+    public static class stack{
+        node top = null;
+        int count = 0;
+        void push(int data)
+        {
+            node newnode = new node(data);
+            if(top==null)
+                top = newnode;
+            else {
+                newnode.next = top;
+                top = newnode;
+            }
+            count++;
+        }
+        int pop()
+        {
+            int element;
+            if(top==null)
+                return -1;
+            else {
+                element = top.data;
+                top = top.next;
+            }
+            count--;
+            return element;
+        }
+        int peek()
+        {
+            int element;
+            if(top==null)
+                return -1;
+            else {
+                element = top.data;
+            }
+            return element;
+        }
+
+        int size()
+        {
+            return count;
+        }
+
+        boolean isEmpty()
+        {
+            return top==null;
+        }
+
+        void display()
+        {
+            node temp = top;
+            while (temp != null)
+            {
+                System.out.print(temp.data + "->");
+                temp = temp.next;
+            }
+            System.out.println("null");
+        }
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        stack st = new stack(); // Changed the object name to 'st'
+
+        System.out.println("1. Push");
+        System.out.println("2. Pop");
+        System.out.println("3. Peek");
+        System.out.println("4. Size");
+        System.out.println("5. Is Empty");
+        System.out.println("6. Display");
+        System.out.println("7. Exit");
+
+        while (true) {
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter data to push: ");
+                    int data = scanner.nextInt();
+                    st.push(data);
+                    break;
+
+                case 2:
+                    int poppedElement = st.pop();
+                    if (poppedElement == -1)
+                        System.out.println("Stack is empty. Cannot pop.");
+                    else
+                        System.out.println("Popped element: " + poppedElement);
+                    break;
+
+                case 3:
+                    int peekedElement = st.peek();
+                    if (peekedElement == -1)
+                        System.out.println("Stack is empty. Cannot peek.");
+                    else
+                        System.out.println("Peeked element: " + peekedElement);
+                    break;
+
+                case 4:
+                    System.out.println("Size of the stack: " + st.size());
+                    break;
+
+                case 5:
+                    System.out.println("Is stack empty: " + st.isEmpty());
+                    break;
+
+                case 6:
+                    System.out.println("Stack elements:");
+                    st.display();
+                    break;
+
+                case 7:
+                    System.out.println("Exiting program.");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 7.");
+            }
+        }
+    }
+}
+
